@@ -10,6 +10,8 @@ import {
   Strong,
 } from './styles';
 
+import Api from '../../service/Api';
+
 import SignInput from '../../components/SignInput';
 
 import BarberLogo from '../../assets/barber.svg';
@@ -22,6 +24,19 @@ const SignUp = () => {
   const [nameField, setNameField] = useState('');
   const [emailField, setEmailField] = useState('');
   const [passwordField, setPasswordField] = useState('');
+
+  const handleNewUser = async () => {
+    if (nameField != '' && emailField != '' && passwordField != '') {
+      let res = await Api.signUp(nameField, emailField, passwordField);
+      if (res.token) {
+        alert('Deu certo');
+      } else {
+        alert(`Erro: ${res.error}`);
+      }
+    } else {
+      alert('Preencha os campos');
+    }
+  };
 
   function handleNavigateToSignIn() {
     reset({
@@ -53,7 +68,7 @@ const SignUp = () => {
           password
         />
 
-        <CustomButton>
+        <CustomButton onPress={handleNewUser}>
           <CustomButtonText>CADASTRAR</CustomButtonText>
         </CustomButton>
 

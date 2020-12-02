@@ -10,6 +10,8 @@ import {
   Strong,
 } from './styles';
 
+import Api from '../../service/Api';
+
 import SignInput from '../../components/SignInput';
 import BarberLogo from '../../assets/barber.svg';
 import EmailIcon from '../../assets/email.svg';
@@ -20,6 +22,19 @@ const SignIn = () => {
 
   const [emailField, setEmailField] = useState('');
   const [passwordField, setPasswordField] = useState('');
+
+  const handleLoginButton = async () => {
+    if (emailField != '' && passwordField != '') {
+      let res = await Api.signIn(emailField, passwordField);
+      if (res.token) {
+        alert('DEU CERTO');
+      } else {
+        alert('Email e/ou senha errados');
+      }
+    } else {
+      alert('Preencha todos os campos');
+    }
+  };
 
   function handleNavigateToSignUp() {
     reset({
@@ -46,7 +61,7 @@ const SignIn = () => {
           password
         />
 
-        <CustomButton>
+        <CustomButton onPress={handleLoginButton}>
           <CustomButtonText>LOGIN</CustomButtonText>
         </CustomButton>
 

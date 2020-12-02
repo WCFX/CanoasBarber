@@ -16,13 +16,15 @@ import EmailIcon from '../../assets/email.svg';
 import PassIcon from '../../assets/lock.svg';
 
 const SignIn = () => {
-  const { navigate } = useNavigation();
+  const { reset } = useNavigation();
 
   const [emailField, setEmailField] = useState('');
   const [passwordField, setPasswordField] = useState('');
 
   function handleNavigateToSignUp() {
-    navigate('SignUp');
+    reset({
+      routes: [{ name: 'SignUp' }],
+    });
   }
 
   return (

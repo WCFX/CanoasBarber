@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native-svg';
 import styled from 'styled-components/native';
 
 export const InputArea = styled.View`
@@ -20,11 +19,16 @@ const Input = styled.TextInput`
   margin-left: 20px;
 `;
 
-export default ({ IconSvg, placeholder }) => {
+export default ({ IconSvg, placeholder, value, onChangeText, password }) => {
   return (
     <InputArea>
       <IconSvg width="24" height="24" fill="#268696" />
-      <Input placeholder={placeholder} />
+      <Input
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        secureTextEntry={password}
+      />
     </InputArea>
   );
 };

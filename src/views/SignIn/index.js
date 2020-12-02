@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   Container,
@@ -9,6 +9,7 @@ import {
   ButtonRedirectText,
   Strong,
 } from './styles';
+
 import SignInput from '../../components/SignInput';
 import BarberLogo from '../../assets/barber.svg';
 import EmailIcon from '../../assets/email.svg';
@@ -16,6 +17,9 @@ import PassIcon from '../../assets/lock.svg';
 
 const SignIn = () => {
   const { navigate } = useNavigation();
+
+  const [emailField, setEmailField] = useState('');
+  const [passwordField, setPasswordField] = useState('');
 
   function handleNavigateToSignUp() {
     navigate('SignUp');
@@ -26,8 +30,19 @@ const SignIn = () => {
       <BarberLogo width="100%" height="160" />
 
       <InputArea>
-        <SignInput placeholder="Digite o seu email" IconSvg={EmailIcon} />
-        <SignInput placeholder="Digite a sua senha" IconSvg={PassIcon} />
+        <SignInput
+          value={emailField}
+          onChangeText={(t) => setEmailField(t)}
+          placeholder="Digite o seu email"
+          IconSvg={EmailIcon}
+        />
+        <SignInput
+          value={passwordField}
+          onChangeText={(t) => setPasswordField(t)}
+          placeholder="Digite a sua senha"
+          IconSvg={PassIcon}
+          password
+        />
 
         <CustomButton>
           <CustomButtonText>LOGIN</CustomButtonText>

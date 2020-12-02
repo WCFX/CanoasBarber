@@ -4,5 +4,7 @@ import { initialState, UserReducer } from '../reducers/UserReducer';
 export const { Provider } = createContext();
 
 export default ({ children }) => {
-  return <Provider>{children}</Provider>;
+  const [state, dispatch] = useReducer(UserReducer, initialState);
+
+  return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };

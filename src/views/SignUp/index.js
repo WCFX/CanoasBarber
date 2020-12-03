@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { UserContext } from '../../context/UserContext';
 import {
   Container,
   InputArea,
@@ -26,10 +29,23 @@ const SignUp = () => {
   const [passwordField, setPasswordField] = useState('');
 
   const handleNewUser = async () => {
+    const { dispatch: userDispatch } = useContext(UserContext);
+
     if (nameField != '' && emailField != '' && passwordField != '') {
       let res = await Api.signUp(nameField, emailField, passwordField);
       if (res.token) {
-        alert('Deu certo');
+        await AsyncStorage.setItem('token', res.token);
+
+        userDispatch({
+          type: 'setAvatar',
+          payload: {
+            avatar: res.data.avatar,
+          },
+        });
+
+        reset({
+          routes: [{ name: 'MainTab' }],
+        });
       } else {
         alert(`Erro: ${res.error}`);
       }

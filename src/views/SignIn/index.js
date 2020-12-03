@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { UserContext } from '../../context/UserContext';
+
 import {
   Container,
   InputArea,
@@ -18,6 +22,7 @@ import EmailIcon from '../../assets/email.svg';
 import PassIcon from '../../assets/lock.svg';
 
 const SignIn = () => {
+  const { dispatch: userDispatch } = useContext(UserContext);
   const { reset } = useNavigation();
 
   const [emailField, setEmailField] = useState('');
@@ -27,7 +32,18 @@ const SignIn = () => {
     if (emailField != '' && passwordField != '') {
       let res = await Api.signIn(emailField, passwordField);
       if (res.token) {
-        alert('DEU CERTO');
+        await AsyncStorage.setItem('token', res.token);
+
+        userDispatch({
+          type: 'setAvatar',
+          payload: {
+            avatar: res.data.avatar,
+          },
+        });
+
+        reset({
+          routes: [{ name: 'MainTab' }],
+        });
       } else {
         alert('Email e/ou senha errados');
       }

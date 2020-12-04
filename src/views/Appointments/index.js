@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 const Appointments = () => {
   return (
     <View>
-      <Text>Olá</Text>
+      <Text>Appointments</Text>
     </View>
   );
 };

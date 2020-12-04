@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 const Search = () => {
   return (
     <View>
-      <Text>Olá</Text>
+      <Text>Search</Text>
     </View>
   );
 };

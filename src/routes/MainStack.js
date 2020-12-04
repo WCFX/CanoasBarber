@@ -18,10 +18,6 @@ export default () => (
     <Screen name="Preload" component={Preload} />
     <Screen name="SignIn" component={SignIn} />
     <Screen name="SignUp" component={SignUp} />
-    <Screen
-      options={{ headerShown: true }}
-      name="MainTab"
-      component={MainTab}
-    />
+    <Screen name="MainTab" component={MainTab} />
   </Navigator>
 );

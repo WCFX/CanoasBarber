@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 const Favorites = () => {
   return (
     <View>
-      <Text>Olá</Text>
+      <Text>Favorites</Text>
     </View>
   );
 };

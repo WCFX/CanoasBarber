@@ -1,6 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import CustomTabBar from '../components/CustomTabBar';
+
 import Home from '../views/Home';
 import Search from '../views/Search';
 import Appointments from '../views/Appointments';
@@ -10,7 +12,7 @@ import Profile from '../views/Profile';
 const { Navigator, Screen } = createBottomTabNavigator();
 
 export default () => (
-  <Navigator>
+  <Navigator tabBar={(props) => <CustomTabBar {...props} />}>
     <Screen name="Home" component={Home} />
     <Screen name="Search" component={Search} />
     <Screen name="Appointments" component={Appointments} />

@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 const Profile = () => {
   return (
     <View>
-      <Text>Olá</Text>
+      <Text>Profile</Text>
     </View>
   );
 };

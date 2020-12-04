@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Platform from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { request, PERMISSIONS } from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
+import Api from '../../service/Api';
 import {
   Container,
   Scroller,
@@ -25,11 +26,11 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
 
-  function handleNavigateToSearch() {
+  const handleNavigateToSearch = () => {
     navigate('Search');
-  }
+  };
 
-  async function handleLocationFinder() {
+  const handleLocationFinder = async () => {
     setCoordinate(null);
     let result = await request(
       Platform.OS === 'ios'
@@ -46,9 +47,25 @@ const Home = () => {
         getBarbers();
       });
     }
-  }
+  };
 
-  async function getBarbers() {}
+  const getBarbers = async () => {
+    setLoading(true);
+    setList([]);
+
+    let res = await Api.getBarbers();
+    console.log(res);
+    if (res.error == '') {
+      setList(res.data);
+    } else {
+      alert(`ERROR: ${res.error}`);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getBarbers();
+  }, []);
 
   return (
     <Container>

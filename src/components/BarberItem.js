@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
 import Stars from './Stars';
@@ -42,8 +43,19 @@ const SeeProfileButtonText = styled.Text`
 `;
 
 export default ({ data }) => {
+  const { navigate } = useNavigation();
+
+  const handleNavigateTo = () => {
+    navigate('Barber', {
+      id: data.id,
+      avatar: data.avatar,
+      name: data.name,
+      stars: data.stars,
+    });
+  };
+
   return (
-    <Area>
+    <Area onPress={handleNavigateTo}>
       <Avatar source={{ uri: data.avatar }} />
       <InfoArea>
         <UserName>{data.name}</UserName>

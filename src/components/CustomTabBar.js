@@ -13,7 +13,7 @@ const TabArea = styled.View`
   height: 60px;
   background-color: #4eadbe;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 `;
 const TabItem = styled.TouchableOpacity`
@@ -31,7 +31,7 @@ const TabItemCenter = styled.TouchableOpacity`
   background-color: #fff;
   border-radius: 35px;
   border: 3px solid #4eadbe;
-  margin-bottom: 20px;
+  margin: 0 20px 35px 20px;
 `;
 
 const AvatarIcon = styled.Image`

@@ -30,8 +30,32 @@ const Home = () => {
 
   const handleNavigateToSearch = () => {
     navigate('Search');
+    console.log('CLIQUEI AQUI');
   };
 
+  const getBarbers = async () => {
+    setLoading(true);
+    setList([]);
+
+    let lat = null;
+    let lng = null;
+
+    if (coordinate) {
+      lat = coordinate.latitude;
+      lng = coordinate.longitude;
+    }
+
+    let res = await Api.getBarbers(lat, lng);
+    if (res.error == '') {
+      if (res.loc) {
+        setLocationText(res.loc);
+      }
+      setList(res.data);
+    } else {
+      alert(`ERROR: ${res.error}`);
+    }
+    setLoading(false);
+  };
   const handleLocationFinder = async () => {
     setCoordinate(null);
     let result = await request(
@@ -49,22 +73,6 @@ const Home = () => {
         getBarbers();
       });
     }
-  };
-
-  const getBarbers = async () => {
-    setLoading(true);
-    setList([]);
-
-    let res = await Api.getBarbers();
-    if (res.error == '') {
-      if (res.loc) {
-        setLocationText(res.loc);
-      }
-      setList(res.data);
-    } else {
-      alert(`ERROR: ${res.error}`);
-    }
-    setLoading(false);
   };
 
   useEffect(() => {

@@ -13,9 +13,9 @@ import {
   Strong,
 } from './styles';
 
-import Api from '../../service/Api';
-
 import SignInput from '../../components/SignInput';
+
+import Api from '../../service/Api';
 
 import BarberLogo from '../../assets/barber.svg';
 import EmailIcon from '../../assets/email.svg';
@@ -23,14 +23,14 @@ import PassIcon from '../../assets/lock.svg';
 import UserIcon from '../../assets/person.svg';
 
 const SignUp = () => {
+  const { dispatch: userDispatch } = useContext(UserContext);
+
   const { reset } = useNavigation();
   const [nameField, setNameField] = useState('');
   const [emailField, setEmailField] = useState('');
   const [passwordField, setPasswordField] = useState('');
 
   const handleNewUser = async () => {
-    const { dispatch: userDispatch } = useContext(UserContext);
-
     if (nameField != '' && emailField != '' && passwordField != '') {
       let res = await Api.signUp(nameField, emailField, passwordField);
       if (res.token) {
@@ -75,6 +75,7 @@ const SignUp = () => {
           onChangeText={(t) => setEmailField(t)}
           placeholder="Digite o seu email"
           IconSvg={EmailIcon}
+          autoCap="none"
         />
         <SignInput
           value={passwordField}

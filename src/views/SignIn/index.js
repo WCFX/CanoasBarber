@@ -68,6 +68,7 @@ const SignIn = () => {
           onChangeText={(t) => setEmailField(t)}
           placeholder="Digite o seu email"
           IconSvg={EmailIcon}
+          autoCap="none"
         />
         <SignInput
           value={passwordField}

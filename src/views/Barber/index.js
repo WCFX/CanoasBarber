@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Container, Title } from './styles';
+import Swiper from 'react-native-swiper';
+import { Container, UserInfoName } from './styles';
 
 import Api from '../../service/Api';
 
@@ -15,21 +16,25 @@ const Barber = () => {
     stars: params.stars,
   });
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const getBarberInfo = async () => {
+      setLoading(true);
       let json = await Api.getBarber(userInfo.id);
       if (json.error == '') {
-        // SE NÃO ACONTECEU
+        setUserInfo(json.data);
       } else {
         alert(`Erro : ${json.error}`);
       }
+      setLoading(false);
     };
     getBarberInfo();
   }, []);
 
   return (
     <Container>
-      <Title>Barbeiro : {userInfo.name} </Title>
+      <UserInfoName>Barbeiro : {userInfo.name} </UserInfoName>
     </Container>
   );
 };
